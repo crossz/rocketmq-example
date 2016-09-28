@@ -25,14 +25,12 @@ public class TestPullConsumer {
         final DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("please_rename_unique_group_name_5");
         String topic = "TopicTest1";
 
-
 //        consumer.setVipChannelEnabled(false);
 //        consumer.setNamesrvAddr("192.168.1.5:9876");
         consumer.setNamesrvAddr("192.168.31.58:9876");
 
         System.out.println("default persiste interval: " + consumer.getPersistConsumerOffsetInterval());
 //        consumer.setPersistConsumerOffsetInterval(1000);
-
 
 
 
@@ -45,7 +43,7 @@ public class TestPullConsumer {
 
             System.out.println("mqs.size() " + mqs.size());
             // 必须加上此监听才能在消费过后，自动回写消费进度
-//            consumer.registerMessageQueueListener(topic, null);
+            consumer.registerMessageQueueListener(topic, null);
             //循环每一个队列
             for (MessageQueue mq : mqs) {
                 System.out.println("######################## a new queue ########################");
@@ -59,6 +57,7 @@ public class TestPullConsumer {
 
                 SINGLE_MQ:
                 while (counter++ < 100) {
+
                     long offset = consumer.fetchConsumeOffset(mq, false);
                     offset = offset < 0 ? 0 : offset;
                     System.out.println("消费进度 Offset: " + offset);
@@ -75,6 +74,7 @@ public class TestPullConsumer {
                                         isEmptyQueue = false;
                                         // 消费每条消息，如果消费失败，比如更新数据库失败，就重新再拉一次消息
                                         System.out.println("pullResult.getMsgFoundList()消息体内容===="+ new String(me.getBody()) + " ==== " + me.getQueueOffset());
+
                                     }
 
                                 }
@@ -84,7 +84,6 @@ public class TestPullConsumer {
                             // 消费完后，更新消费进度
                             consumer.updateConsumeOffset(mq, offset);
 
-
                             break;
                         case NO_MATCHED_MSG:
                             System.out.println("没有匹配的消息");
@@ -92,9 +91,6 @@ public class TestPullConsumer {
                         case NO_NEW_MSG:
                             System.out.println("没有未消费的新消息");
                             //拉取不到新消息，跳出 SINGLE_MQ 当前队列循环，开始下一队列循环。
-
-
-
 
 
 
@@ -146,7 +142,8 @@ public class TestPullConsumer {
                 // 如果只要这个延迟一次，用cancel方法取消掉．
                 this.cancel();
             }
-        }, 3000);
+        }, 3);
+
     }
 
     private static void putMessageQueueOffset(MessageQueue mq, long offset) {

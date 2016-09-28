@@ -47,7 +47,8 @@ public class TestProducer {
 //                    Message msg = new Message("test",// topic
                             "TagA",// tag
                             "key113",// key
-                            ("Hello CO ==== 2-" + i).getBytes(RemotingHelper.DEFAULT_CHARSET));// body
+                            ("Hello CO ==== 1-" + i).getBytes(RemotingHelper.DEFAULT_CHARSET));// body
+
                     SendResult sendResult = producer.send(msg);
                     System.out.println(sendResult);
 
