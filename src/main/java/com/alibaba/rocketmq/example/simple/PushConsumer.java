@@ -34,12 +34,7 @@ public class PushConsumer {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("CID_JODIE_1");
 
 
-        consumer.setNamesrvAddr("192.168.31.58:9876");
-
-
-
-//        consumer.subscribe("Jodie_topic_1023", "*");
-        consumer.subscribe("test", "*");
+        consumer.subscribe("TopicTest1", "*");
 
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
 
@@ -51,9 +46,17 @@ public class PushConsumer {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
                 System.out.println(Thread.currentThread().getName() + " Receive New Messages: " + msgs);
+
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
+
+
+        consumer.setVipChannelEnabled(false);
+        consumer.setNamesrvAddr("192.168.1.5:9876");
+
+
+
 
 
         consumer.start();

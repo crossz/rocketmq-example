@@ -16,12 +16,10 @@
  */
 package com.alibaba.rocketmq.example.simple;
 
-import com.alibaba.rocketmq.client.QueryResult;
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.client.producer.DefaultMQProducer;
 import com.alibaba.rocketmq.client.producer.SendResult;
 import com.alibaba.rocketmq.common.message.Message;
-import com.alibaba.rocketmq.common.message.MessageExt;
 import com.alibaba.rocketmq.remoting.common.RemotingHelper;
 
 
@@ -32,32 +30,33 @@ public class TestProducer {
 
 
 
-        producer.setNamesrvAddr("192.168.31.58:9876");
-//        producer.setInstanceName("Producer");
-
+        producer.setVipChannelEnabled(false);
+        producer.setNamesrvAddr("192.168.1.5:9876");
 
 
 
         producer.start();
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 100; i++)
             try {
+//                Thread.sleep(1*1000);
+
                 {
                     Message msg = new Message("TopicTest1",// topic
-//                    Message msg = new Message("test",// topic
                             "TagA",// tag
                             "key113",// key
-                            ("Hello CO ==== 1-" + i).getBytes(RemotingHelper.DEFAULT_CHARSET));// body
-
+                            ("Hello CO.......3+"+i).getBytes(RemotingHelper.DEFAULT_CHARSET));// body
                     SendResult sendResult = producer.send(msg);
                     System.out.println(sendResult);
+//                    System.out.println(msg.getBody());
 
 //                    QueryResult queryMessage =
-////                            producer.queryMessage("TopicTest1", "key113", 10, 0, System.currentTimeMillis());
-//                            producer.queryMessage("test", "key113", 10, 0, System.currentTimeMillis());
+//                            producer.queryMessage("TopicTest1", "key113", 10, 0, System.currentTimeMillis());
 //                    for (MessageExt m : queryMessage.getMessageList()) {
 //                        System.out.println(m);
 //                    }
+
+
                 }
 
             } catch (Exception e) {
