@@ -26,7 +26,7 @@ import com.alibaba.rocketmq.remoting.common.RemotingHelper;
 public class TestProducer {
     public static void main(String[] args) throws MQClientException, InterruptedException {
 
-        DefaultMQProducer producer = new DefaultMQProducer("ProducerGroupName");
+        DefaultMQProducer producer = new DefaultMQProducer("CZ-group");
 
 
 
@@ -45,7 +45,7 @@ public class TestProducer {
                     Message msg = new Message("TopicTest1",// topic
                             "TagA",// tag
                             "key113",// key
-                            ("Hello CO.......6+"+i).getBytes(RemotingHelper.DEFAULT_CHARSET));// body
+                            ("Hello CO.......8+"+i).getBytes(RemotingHelper.DEFAULT_CHARSET));// body
                     SendResult sendResult = producer.send(msg);
                     System.out.println(sendResult);
 //                    System.out.println(msg.getBody());

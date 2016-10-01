@@ -11,7 +11,7 @@ public class TestPullConsumer {
 //    private static final Map offseTable = new HashMap();
     private static final Map<MessageQueue, Long> offseTable = new HashMap<MessageQueue, Long>();
     public static void main(String[] args) throws MQClientException {
-        final DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("consumerLiu1");
+        final DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("CZ-group");
         String topic = "TopicTest1";
 
 
@@ -43,9 +43,6 @@ public class TestPullConsumer {
 
                 //循环每一个队列
                 for (MessageQueue mq : mqs) {
-                    System.out.println("++++++++++++++++++++++ new queue +++++++++++++++++++++++++++++");
-                    System.out.println("Consume message from queue: " + mq + " mqsize=" + mqs.size());
-
 
                     boolean isEmptyQ = true;
                     long curOffset = 0;
@@ -70,7 +67,7 @@ public class TestPullConsumer {
                                             // 消费每条消息，如果消费失败，比如更新数据库失败，就重新再拉一次消息
                                             isEmptyQ = false;
                                             curOffset = me.getQueueOffset();
-                                            System.out.println("pullResult.getMsgFoundList()消息体内容====" + new String(me.getBody()) + " ==== " + curOffset);
+                                            System.out.println("pullResult.getMsgFoundList()消息体内容: " + new String(me.getBody()) + "==== queueId: " + me.getQueueId() + " ====  queueOffset: " + curOffset);
                                         }
                                     }
                                 }

@@ -31,7 +31,7 @@ public class PushConsumer {
 
     public static void main(String[] args) throws InterruptedException, MQClientException {
 
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("CID_JODIE_1");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("CZ-group");
 
 
         consumer.subscribe("TopicTest1", "*");
@@ -54,8 +54,6 @@ public class PushConsumer {
 
         consumer.setVipChannelEnabled(false);
         consumer.setNamesrvAddr("192.168.1.5:9876");
-
-
 
 
 

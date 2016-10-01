@@ -30,13 +30,22 @@ public class PullConsumer {
 
 
     public static void main(String[] args) throws MQClientException {
-        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("please_rename_unique_group_name_5");
+        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("CZ-group");
+
+
+        consumer.setVipChannelEnabled(false);
+        consumer.setNamesrvAddr("192.168.1.5:9876");
+
 
         consumer.start();
 
         Set<MessageQueue> mqs = consumer.fetchSubscribeMessageQueues("TopicTest1");
         for (MessageQueue mq : mqs) {
             System.out.println("Consume from the queue: " + mq);
+
+
+
+
             SINGLE_MQ:
             while (true) {
                 try {

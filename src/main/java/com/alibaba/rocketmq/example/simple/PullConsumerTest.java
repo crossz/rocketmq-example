@@ -23,7 +23,7 @@ import com.alibaba.rocketmq.common.message.MessageQueue;
 
 public class PullConsumerTest {
     public static void main(String[] args) throws MQClientException {
-        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("please_rename_unique_group_name_5");
+        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("CZ-group");
 
 
 
