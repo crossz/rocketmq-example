@@ -17,6 +17,8 @@ public class TestPullConsumer {
 
         consumer.setVipChannelEnabled(false);
         consumer.setNamesrvAddr("192.168.1.5:9876");
+        // consumer.setNamesrvAddr("192.168.31.58:9876");
+
 
 
 
@@ -27,7 +29,8 @@ public class TestPullConsumer {
 
 
         int i = 1;
-        while (i ++ <2) {
+//        while (i ++ <2) {
+        while (true) {
 
             try {
 
@@ -99,7 +102,7 @@ public class TestPullConsumer {
 
                     if (isEmptyQ) {
                     } else {
-                        Thread.sleep(30 * 1000);
+                        Thread.sleep(3 * 1000);
                     }
                     System.out.println("Offset from store ==== " + consumer.fetchConsumeOffset(mq, true));
 
@@ -113,19 +116,19 @@ public class TestPullConsumer {
 
 
 
-        // 定义一个定时器，用于测试pull方法时，模拟延时以便自动更新消费进度操作，生产环境中，因consumer一直在运行，因此不需要此步操作。
-        final Timer timer = new Timer("TimerThread", true);
-        // 定时器延时30秒后，关闭cousumer，因为客户端从首次启动时在1000*10ms即10秒后，后续每5秒定期执行一次（由参数：persistConsumerOffsetInterval 控制）向本机及broker端回写记录消费进度，
-        // 因此consumer启动后需要延时至少15秒才能执行回写操作，否则下次运行pull方法时，因上次未能及时更新消费进度，程序会重复取出上次消费过的消息重新消费，所以此处延时30秒，留出回写的时间
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                consumer.shutdown();
-                // 如果只要这个延迟一次，用cancel方法取消掉．
-                this.cancel();
-            }
-//        }, 30000);
-        }, 1000 * 1);
+//        // 定义一个定时器，用于测试pull方法时，模拟延时以便自动更新消费进度操作，生产环境中，因consumer一直在运行，因此不需要此步操作。
+//        final Timer timer = new Timer("TimerThread", true);
+//        // 定时器延时30秒后，关闭cousumer，因为客户端从首次启动时在1000*10ms即10秒后，后续每5秒定期执行一次（由参数：persistConsumerOffsetInterval 控制）向本机及broker端回写记录消费进度，
+//        // 因此consumer启动后需要延时至少15秒才能执行回写操作，否则下次运行pull方法时，因上次未能及时更新消费进度，程序会重复取出上次消费过的消息重新消费，所以此处延时30秒，留出回写的时间
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                consumer.shutdown();
+//                // 如果只要这个延迟一次，用cancel方法取消掉．
+//                this.cancel();
+//            }
+////        }, 30000);
+//        }, 1000 * 1);
 
 
 
