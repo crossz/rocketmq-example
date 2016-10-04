@@ -12,9 +12,9 @@ PullConsumer example:
 
 ## Notes:
 ```
-                            // consumer.fetchConsumeOffset(mq, false) will updateOffset again, so before exiting, have to update the offset again.
-                            consumer.updateConsumeOffset(mq, pullResult.getNextBeginOffset());
-                            if (counter==0 && !isEmptyQ) Thread.sleep(1000 * 30);
-                            // only counter==0 to delay 30 seconds to initialize the background thread for update offset on store.
-                            counter++;
+// consumer.fetchConsumeOffset(mq, false) will updateOffset again, so before exiting, have to update the offset again.
+consumer.updateConsumeOffset(mq, pullResult.getNextBeginOffset());
+if (counter==0 && !isEmptyQ) Thread.sleep(1000 * 30);
+// only counter==0 to delay 30 seconds to initialize the background thread for update offset on store.
+counter++;
 ```
