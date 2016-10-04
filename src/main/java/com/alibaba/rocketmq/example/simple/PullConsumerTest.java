@@ -23,25 +23,14 @@ import com.alibaba.rocketmq.common.message.MessageQueue;
 
 public class PullConsumerTest {
     public static void main(String[] args) throws MQClientException {
-        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("CZ-group");
-
-
-
-
-        consumer.setVipChannelEnabled(false);
-        consumer.setNamesrvAddr("192.168.1.5:9876");
-
-
-
-
+        DefaultMQPullConsumer consumer = new DefaultMQPullConsumer("please_rename_unique_group_name_5");
         consumer.start();
 
         try {
             MessageQueue mq = new MessageQueue();
             mq.setQueueId(0);
-            mq.setTopic("TopicTest1");
-//            mq.setBrokerName("vivedeMacBook-Pro.local");
-            mq.setBrokerName("broker-a");
+            mq.setTopic("TopicTest3");
+            mq.setBrokerName("vivedeMacBook-Pro.local");
 
             long offset = 26;
 
@@ -49,15 +38,6 @@ public class PullConsumerTest {
             PullResult pullResult = consumer.pullBlockIfNotFound(mq, null, offset, 32);
             System.out.println(System.currentTimeMillis() - beginTime);
             System.out.println(pullResult);
-
-
-
-
-
-
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }

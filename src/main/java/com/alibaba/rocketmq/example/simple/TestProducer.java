@@ -31,21 +31,23 @@ public class TestProducer {
 
 
         producer.setVipChannelEnabled(false);
-        producer.setNamesrvAddr("192.168.1.5:9876");
-        // producer.setNamesrvAddr("192.168.31.58:9876");
+//        producer.setNamesrvAddr("192.168.1.5:9876");
+         producer.setNamesrvAddr("192.168.31.58:9876");
 
 
         producer.start();
 
         for (int i = 0; i < 100; i++)
             try {
-                Thread.sleep(1*100);
+
+                // to simulate producing
+//                Thread.sleep(1*100);
 
                 {
                     Message msg = new Message("TopicTest1",// topic
                             "TagA",// tag
-                            "key113",// key
-                            ("Hello CO.......8+"+i).getBytes(RemotingHelper.DEFAULT_CHARSET));// body
+                            "key1",// key
+                            ("Hello CO.......1+"+i).getBytes(RemotingHelper.DEFAULT_CHARSET));// body
                     SendResult sendResult = producer.send(msg);
                     System.out.println(sendResult);
 //                    System.out.println(msg.getBody());
